@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbp620jo12t1k"]
+
+[ext_resource type="Texture2D" uid="uid://cpv0oqsi36y73" path="res://assets/sprites/slime_green.png" id="1_pxj5o"]
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_whyrg"]
+[ext_resource type="PackedScene" uid="uid://c3jxyn66is4iu" path="res://scenes/killzone.tscn" id="2_4fa34"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yvmc"]
+atlas = ExtResource("1_pxj5o")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp7w0"]
+atlas = ExtResource("1_pxj5o")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dknxs"]
+atlas = ExtResource("1_pxj5o")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytkcf"]
+atlas = ExtResource("1_pxj5o")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sneqe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yvmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp7w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dknxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytkcf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_152ss"]
+size = Vector2(14, 15)
+
+[node name="slime" type="Node2D"]
+script = ExtResource("1_whyrg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sneqe")
+autoplay = "default"
+frame = 2
+frame_progress = 0.81909
+
+[node name="killzone" parent="." instance=ExtResource("2_4fa34")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_152ss")
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+target_position = Vector2(11, 0)
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
